@@ -1,0 +1,27 @@
+Editor de diagrama:
+https://lucid.app/lucidchart/65845c17-0d10-43f1-8f39-a9980d0b5a7a/edit?page=0_0&invitationId=inv_2d29f235-f5ec-47fb-b7d6-ee1846d49bc3#
+PDF con diapos de ayuda:
+https://campusvirtualecyt.unsam.edu.ar/pluginfile.php/333850/mod_resource/content/1/05b%20-%20Dise%C3%B1o%20de%20detalle%20%20Diagramas.pdf
+
+Ejemplos mas usados de relaciones:
+
+Relaciones comunes en diagramas de clases
+
+    Asociación
+
+        Representa que una clase "usa" o "conoce" a otra.
+        Puede ser bidireccional o unidireccional.
+        Ejemplo: Un Hotel tiene una lista de Habitacion.
+        Representado con una línea simple entre clases.
+
+    Agregación
+
+        Es un tipo especial de asociación que representa una relación "todo-parte" donde las partes pueden existir independientemente del todo.
+        Ejemplo: Un Departamento tiene empleados, pero un empleado puede existir fuera del departamento.
+        Representado con un rombo vacío en el lado del todo.
+
+    Composición
+
+        Otro tipo de asociación "todo-parte", pero con fuerte dependencia. Las partes no pueden existir sin el todo.
+        Ejemplo: Un Reserva contiene Habitacion (Por ejemplo si la reserva "posee" las habitaciones asignadas y éstas no existen fuera de la reserva).
+        Representado con un rombo relleno en el lado del todo.
