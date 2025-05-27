@@ -1,0 +1,42 @@
+//Pasos para armar una excepcion propia.
+
+--> Paso 1 - crear la excepcion
+    La clase debe extender Exception (si es checked) o RuntimeException (si es unchecked).
+
+public class MiExcepcionPersonalizada extends Exception {
+    public MiExcepcionPersonalizada(String mensaje) {
+        super(mensaje);
+    }
+}
+
+
+--> Paso 2 - Lanzar la excepcion donde puede ocurrir
+
+public void registrarUsuario(String nombre) throws MiExcepcionPersonalizada {
+    if (nombre == null || nombre.isEmpty()) {
+        throw new MiExcepcionPersonalizada("El nombre no puede estar vacío.");
+    }
+    // resto del código...
+}
+
+
+--> Paso 3 - Capturar la excepcion donde se produce la ejecucion indebida del codigo.
+
+try {
+    registrarUsuario("");
+} catch (MiExcepcionPersonalizada e) {
+    System.out.println("Error al registrar: " + e.getMessage());
+}
+
+
+------------------------------------------------------------------
+
+Excepciones Unchecked:
+Ejemplos:
+
+NullPointerException: 	Parámetro es null cuando no está permitido
+IllegalArgumentException: 	Parámetro no null inválido
+IllegalStateException: 	Estado del objeto inválido para invocar algún método
+IndexOutOfBoundsException: 	El valor del índice está fuera de rango permitido
+UnsupportedOperationException: 	El objeto no soporta ese método
+
