@@ -1,0 +1,74 @@
+import java.time.LocalDate;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+
+        // Creo hotel
+        Hotel hotel = new Hotel("Hotel California", "Av. Siempre Viva 123");
+        hotel.definirPrecioNoche(100);
+
+        // Agrego habitaciones
+        hotel.agregarHabitacion(3);  // Base 1
+        hotel.agregarHabitacion(4);  // Base 2
+        hotel.agregarHabitacion(6);  // Base 3
+        hotel.agregarHabitacion(6);  // Base 4
+        hotel.agregarHabitacion(8);  // Base 5
+
+        // Creo clientes
+        Cliente juana = new Cliente("Juana");
+        Cliente pedro = new Cliente("Pedro");
+        Cliente maria = new Cliente("Maria");
+
+        // Consulto disponibilidad entre 14 y 20 junio 2024
+        System.out.println("Consultar disponibilidad en el hotel entre el 14 y 20 de junio de 2024");
+        imprimirDisponibilidad(hotel.consultarDisponibilidad(LocalDate.of(2024, 6, 14), LocalDate.of(2024, 6, 20)));
+
+        // Reservas
+        hotel.reservarHabitacion(juana, LocalDate.of(2024, 6, 14), LocalDate.of(2024, 6, 20), 6);
+        hotel.reservarHabitacion(pedro, LocalDate.of(2024, 6, 15), LocalDate.of(2024, 6, 18), 4);
+
+        // Consulto disponibilidad después de reservas Juana y Pedro
+        System.out.println("Consultar disponibilidad en el hotel entre el 14 y 20 de junio de 2024 (después de las reservas de Juana y Pedro)");
+        imprimirDisponibilidad(hotel.consultarDisponibilidad(LocalDate.of(2024, 6, 14), LocalDate.of(2024, 6, 20)));
+
+        // Consulto disponibilidad entre 18 y 25 junio 2024
+        System.out.println("Consultar disponibilidad en el hotel entre el 18 y 25 de junio de 2024");
+        imprimirDisponibilidad(hotel.consultarDisponibilidad(LocalDate.of(2024, 6, 18), LocalDate.of(2024, 6, 25)));
+
+        // Reserva María
+        hotel.reservarHabitacion(maria, LocalDate.of(2024, 6, 19), LocalDate.of(2024, 6, 30), 4);
+
+        // Consulto disponibilidad después reserva María
+        System.out.println("Consultar disponibilidad en el hotel entre el 10 y 25 de junio de 2024 (después de la reserva de María)");
+        imprimirDisponibilidad(hotel.consultarDisponibilidad(LocalDate.of(2024, 6, 10), LocalDate.of(2024, 6, 25)));
+
+        // Mostrar reservas completas del hotel
+        System.out.println("Mostrar información detallada de las reservas de un hotel");
+        System.out.println("* Reservas del hotel " + hotel.getNombre());
+
+        List<Reserva> reservas = hotel.getReservas();
+        for (Reserva res : reservas) {
+            System.out.println("** Reserva " + res.getNumeroReserva());
+            // Por simplicidad muestro solo la primer habitación en la línea principal, luego todas en detalle
+            Habitacion hab = res.getHabitaciones().get(0);
+            System.out.println("- Habitacion: " + hab.getDescripcion());
+            System.out.println("- Cliente: " + res.getCliente().getNombre());
+            System.out.println("- Checkin: " + res.getCheckIn());
+            System.out.println("- Checkout: " + res.getCheckOut());
+            System.out.println("- Cantidad de noches: " + res.getCantidadNoches());
+            System.out.println("- Monto: $" + res.getMonto());
+        }
+    }
+
+    private static void imprimirDisponibilidad(List<Habitacion> habitaciones) {
+        if (habitaciones.isEmpty()) {
+            System.out.println("* No hay habitaciones disponibles.");
+            return;
+        }
+        System.out.println("* Habitaciones disponibles:");
+        for (Habitacion h : habitaciones) {
+            System.out.println("- " + h.getDescripcion());
+        }
+    }
+}
