@@ -1,0 +1,14 @@
+Como funciona el modificador static
+
+private static int contador = 1;
+
+¿Cuándo usar static?
+
+Usás static cuando:
+--> El valor o comportamiento no depende de un objeto específico.
+
+--> Querés compartir datos entre todos los objetos de una clase (como un contador).
+
+--> Estás creando una función auxiliar o utilitaria que no necesita acceder a datos de instancia.
+
+Ejemplo de uso: Armar IDs unicos en una clase.
