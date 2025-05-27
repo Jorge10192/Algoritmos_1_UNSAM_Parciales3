@@ -1,0 +1,85 @@
+//Modulos a importar
+import java.io.FileWriter;
+import java.io.IOException;
+
+
+//Ejemplo para exportar en formato CSV en java en caso de generar algun reporte.
+
+public void exportarDonantesCSV(String nombreArchivo) {
+    try (FileWriter writer = new FileWriter(nombreArchivo)) {
+        // Escribir encabezado CSV
+        writer.write("Apellido,Nombre,ID,Pendientes,Aceptadas,Rechazadas,Totales\n");
+
+        List<Donante> listaDonantesOrdenados = ordenarLista(listaDonantes);
+
+        for (Donante d : listaDonantesOrdenados) {
+            d.calcularCantDonTotales();  // si necesitás actualizar totales
+
+            // Armar línea CSV separada por comas
+            String linea = String.format("%s,%s,%d,%d,%d,%d,%d\n",
+                    d.getApellido(),
+                    d.getNombre(),
+                    d.getId(),
+                    d.getCantDonPendientes(),
+                    d.getCantDonAceptadas(),
+                    d.getCantDonRechazadas(),
+                    d.getCantDonTotales());
+
+            writer.write(linea);
+        }
+
+        System.out.println("Archivo CSV creado correctamente: " + nombreArchivo);
+
+    } catch (IOException e) {
+        System.err.println("Error al escribir el archivo CSV: " + e.getMessage());
+    }
+}
+
+
+
+//Ejemplo al generar archivo txt
+
+//Crear el texto como lista de Strings.
+public List<String> generarReporteDonantes() {
+    List<String> lineas = new ArrayList<>();
+
+    lineas.add("Listado de donantes de " + this.nombreOng + ":\n");
+
+    lineas.add(String.format("%-15s | %-12s | %-4s | %-10s | %-10s | %-11s | %-7s|",
+            "Apellido", "Nombre", "ID", "Pendientes", "Aceptadas", "Rechazadas", "Totales"));
+
+    lineas.add("----------------------------------------------------------------------------");
+
+    List<Donante> listaDonantesOrdenados = ordenarLista(listaDonantes);
+
+    for (Donante d : listaDonantesOrdenados) {
+        d.calcularCantDonTotales();
+
+        lineas.add(String.format("%-15s | %-12s | %-4d | %-10d | %-10d | %-11d | %-7d|",
+                d.getApellido(),
+                d.getNombre(),
+                d.getId(),
+                d.getCantDonPendientes(),
+                d.getCantDonAceptadas(),
+                d.getCantDonRechazadas(),
+                d.getCantDonTotales()
+        ));
+    }
+
+    return lineas;
+}
+
+//Usar un metodo para exportar el texto a txt
+public void exportarReporteDonantesATexto(String nombreArchivo) {
+    List<String> lineas = generarReporteDonantes();
+
+    try (FileWriter writer = new FileWriter(nombreArchivo)) {
+        for (String linea : lineas) {
+            writer.write(linea);
+            writer.write(System.lineSeparator());
+        }
+        System.out.println("Archivo generado correctamente: " + nombreArchivo);
+    } catch (IOException e) {
+        System.err.println("Error al escribir el archivo: " + e.getMessage());
+    }
+}
